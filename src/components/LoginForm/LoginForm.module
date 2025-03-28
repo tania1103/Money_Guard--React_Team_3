@@ -1,0 +1,177 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 5px;
+  margin: 0 auto;
+  width: 100vw;
+  height: 100vh;
+  background: var(--Form-color, rgba(255, 255, 255, 0.1));
+  backdrop-filter: blur(50px);
+  box-shadow: 0 4px 60px 0 rgba(0, 0, 0, 0.25);
+}
+
+.loginTitle {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: 19px;
+  color: var(--white);
+  padding-bottom: 52px;
+}
+
+.label {
+  width: 280px;
+  margin: 0 auto;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  align-content: space-around;
+  margin-top: 20px;
+  border-radius: 20px;
+  width: 280px;
+  height: 50px;
+  box-shadow: var(--button-shadow);
+  color: var(--text-button);
+  border: 1px solid #4a56e2;
+  background: #fcfcfc;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.1em;
+  background-position: left center;
+  transition: var(--transition);
+  background-size: 200%;
+}
+
+.link:hover,
+.link:focus {
+  background-position: right center;
+  transform: var(--scale);
+}
+
+.but {
+  border-radius: 20px;
+  width: 280px;
+  height: 50px;
+  box-shadow: 1px 9px 15px 0 rgba(0, 0, 0, 0.2);
+  background: var(--button-gradient);
+  color: var(--white);
+  border: none;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background-position: left center;
+  transition: var(--transition);
+  background-size: 200%;
+}
+
+.but:hover,
+.but:focus {
+  background-position: right center;
+  transform: var(--scale);
+}
+
+.button_log {
+  border-radius: 20px;
+  width: 300px;
+  height: 50px;
+  box-shadow: var(--button-shadow);
+  background: var(--white);
+  border: none;
+}
+
+.loginInput {
+  position: relative;
+  width: 280px;
+  height: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  border-bottom: 1px solid #ccc;
+  color: var(--white-60);
+  padding-left: 30px;
+  box-sizing: border-box;
+  padding-bottom: 8px;
+  font-size: 18px;
+  transition: var(--transition);
+}
+
+.loginInput:hover,
+.loginInput:focus {
+  border-bottom: 1px solid var(--yellow);
+}
+
+.inputContainerLogo {
+  width: 300px;
+  height: 50px;
+  position: relative;
+}
+
+.loginLogo {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.iconName {
+  fill: var(--white-40);
+  position: absolute;
+  stroke: none;
+  margin-top: 4px;
+}
+
+.error {
+  position: fixed;
+  color: var(--yellow);
+  font-size: 12px;
+  margin-top: 3px;
+}
+
+.success {
+  position: fixed;
+  color: var(--white);
+  font-size: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .form {
+    border-radius: 8px;
+    width: 533px;
+    height: 570px;
+  }
+
+  .loginTitle {
+    font-size: 26px;
+    white-space: nowrap;
+  }
+
+  .loginInput {
+    width: 409px;
+  }
+
+  .modalEllipse {
+    position: absolute;
+    z-index: -1;
+    border-radius: 454px;
+    background-color: rgba(47, 21, 176, 0.7);
+    filter: blur(100px);
+    width: 454px;
+    height: 454px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .but {
+    margin-top: 12px;
+  }
+}
