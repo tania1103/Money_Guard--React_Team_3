@@ -1,0 +1,38 @@
+.header {
+  font-weight: 400;
+  font-size: 30px;
+  text-align: left;
+  color: var(--white);
+  font-family: var(--font-family);
+  padding: 8px 0 20px;
+  padding-left: 20px;
+}
+.statisticsWrapper {
+  padding-top: 20px;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    padding-left: 0px;
+  }
+  .statisticsWrapper {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+  }
+}
+
+@media only screen and (min-width: 1280px) {
+  .header {
+    padding-left: 15px;
+  }
+
+  .doughnutWrapper {
+    max-width: 400px;
+    padding-left: 60px;
+    padding-right: 32px;
+  }
+  .tableWrapper {
+    padding-top: 69px;
+  }
+}
