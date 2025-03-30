@@ -1,32 +1,25 @@
-@media only screen and (min-width: 768px) {
-  .pageRegister {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 100vh;
-    background-image: url("../../images/backgroundRegistration/regbg_tabl_@1x.webp");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-  }
+.spinnerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-@media only screen and (min-width: 768px) and (min-resolution: 192dpi) {
-  .pageRegister {
-    background-image: url("../../images/backgroundRegistration/regbg_tabl_@2x.webp");
-  }
+.dollarSpinner {
+  width: 88px;
+  height: 88px;
+  animation: swingHorizontal 2s ease-in-out infinite;
+  color: #ffb627;
+  transform-origin: center;
 }
 
-@media only screen and (min-width: 1280px) {
-  .pageRegister {
-    background-image: url("../../images/backgroundRegistration/regbg_desk_@1x.webp");
+@keyframes swingHorizontal {
+  0%,
+  100% {
+    transform: rotateY(0deg);
   }
-}
-
-@media only screen and (min-width: 1280px) and (min-resolution: 192dpi) {
-  .pageRegister {
-    background-image: url("../../images/backgroundRegistration/regbg_desk_@2x.webp");
+  50% {
+    transform: rotateY(180deg);
   }
 }
 
