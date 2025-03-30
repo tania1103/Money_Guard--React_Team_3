@@ -37,8 +37,8 @@ const TransactionItem = ({
     <TableRow>
       <TableCell>
         {typeof date === 'string'
-          ? date
-          : new Date(date).toLocaleDateString('en-GB')}
+          ? date.replace(/\//g, '.')
+          : new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')}
       </TableCell>
       <TableCell>{type}</TableCell>
       <TableCell>{category}</TableCell>

@@ -9,10 +9,10 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import backgroundImage from '../../images/noTransactions/add-transaction.jpg';
-// import dropDownImage from '../../images/noTransactions/dr-down.jpg';
-import './AddTransactionForm.module.css';
 import { Button } from '@mui/material';
+import backgroundImage from '../../images/noTransactions/add-transaction.jpg';
+import styles from './AddTransactionForm.module.css';
+import './DatePickerStyles.css'; 
 
 const validationSchema = Yup.object().shape({
   sum: Yup.number()
@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
 
 const AddTransactionForm = ({ open, onClose, onSubmit }) => {
   const [transactionType, setTransactionType] = useState('Expense');
-  const [hoveredOption, setHoveredOption] = useState(null);
+//   const [hoveredOption, setHoveredOption] = useState(null);
 
   const handleToggleChange = event => {
     setTransactionType(event.target.checked ? 'Expense' : 'Income');
@@ -37,16 +37,23 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
 
   const formatDate = date => {
     try {
-      return new Date(date).toLocaleDateString('en-GB');
+      return new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.');
     } catch (e) {
       return '';
     }
-  };
+    };
+    const currentDate = new Date()
+      .toLocaleDateString('en-GB', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      })
+      .replace(/\//g, '.');
 
   const parseDate = date => {
     const parsedDate = new Date(date);
     return isNaN(parsedDate.getTime()) ? null : parsedDate;
-  };
+    };
 
   return (
     <Modal
@@ -65,7 +72,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
           boxShadow: 24,
           borderRadius: 3,
           p: 4,
-          width: 400,
+          width: 440,
           textAlign: 'center',
           backgroundImage: `url(${backgroundImage})`,
           backgroundSize: 'cover',
@@ -73,12 +80,32 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
           backgroundRepeat: 'no-repeat',
         }}
       >
-        <h2
-          id="add-transaction-modal"
-          style={{ marginBottom: '25px', color: 'white' }}
+        {/* Buton X */}
+        <Button
+          onClick={onClose}
+          sx={{
+            position: 'absolute',
+            top: '10px',
+            right: '10px',
+            backgroundColor: 'transparent',
+            border: 'none',
+            fontSize: '18px',
+            color: '#fff',
+            cursor: 'pointer',
+          }}
         >
-          Add Transaction
-        </h2>
+          ✖
+        </Button>
+        <div
+          id="add-transaction-modal"
+          style={{
+            marginBottom: '38px',
+            color: 'white',
+            fontSize: '30px',
+          }}
+        >
+          Add transaction
+        </div>
 
         {/* Formik Formular */}
         <Formik
@@ -91,7 +118,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
             const formattedDate = values.date
-              ? values.date.toLocaleDateString('en-GB') // formateaza în DD/MM/YYYY
+              ? values.date.toLocaleDateString('en-GB').replace(/\//g, '.') // formateaza în DD/MM/YYYY
               : null;
             const type = transactionType === 'Income' ? '+' : '-';
             onSubmit({ ...values, type });
@@ -103,6 +130,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
             <Form>
               {/* Switcher */}
               {console.log('Current date value:', values.date)}
+
               {/* Switch pentru Income/Expense cu text la stânga și dreapta */}
               <div
                 style={{
@@ -119,6 +147,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                   style={{
                     fontWeight: 'bold',
                     marginRight: '15px',
+                    marginBottom: '18px',
                     color: transactionType === 'Income' ? 'orange' : 'white',
                   }}
                 >
@@ -133,6 +162,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                     width: 82,
                     height: 35,
                     padding: 0,
+                    marginBottom: '18px',
                     position: 'relative',
                     '& .MuiSwitch-switchBase': {
                       padding: 0,
@@ -175,6 +205,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                   style={{
                     fontWeight: 'bold',
                     marginLeft: '15px',
+                    marginBottom: '18px',
                     color: transactionType === 'Expense' ? 'red' : 'white',
                   }}
                 >
@@ -184,12 +215,12 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
 
               {/* Category (pentru cheltuieli) */}
               {transactionType === 'Expense' && (
-                <div style={{ marginBottom: '15px' }}>
+                <div style={{ marginBottom: '30px' }}>
                   <Field
                     as="select" // Dropdown menu
                     name="category"
                     style={{
-                      width: '80%',
+                      width: '100%',
                       backgroundColor: `transparent`,
                       color: 'white',
                       padding: '10px',
@@ -203,12 +234,15 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                     <option
                       value=""
                       disabled
+                      className="dropdown-option"
                       style={{
-                        color: hoveredOption === null ? 'white' : 'red',
-                        backgroundColor: '#7445F5',
+                        //color: hoveredOption === null ? 'white' : 'red',
+                        backgroundColor: '#50309A',
+                        // background:
+                        //   'linear-gradient(135deg, #533DBA 0%, #50309A 25%, #6A46A5 75%, #855DAF 100%)',
                       }}
-                      onMouseEnter={() => setHoveredOption(null)}
-                      onMouseLeave={() => setHoveredOption(null)}
+                      //   onMouseEnter={() => setHoveredOption(null)}
+                      //   onMouseLeave={() => setHoveredOption(null)}
                     >
                       Select a category
                     </option>
@@ -225,19 +259,21 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                       <option
                         key={index}
                         value={category}
-                        // className="select-dropdown"
+                        className="dropdown-option"
                         style={{
-                          color: hoveredOption === category ? 'red' : 'white',
-                          backgroundColor: '#7445F5',
+                          //color: hoveredOption === category ? 'red' : 'white',
+                          backgroundColor: '#50309A',
+                          //   background:
+                          //     'linear-gradient(135deg, #533DBA 0%, #50309A 25%, #6A46A5 75%, #855DAF 100%)',
                         }}
-                        onMouseEnter={() => setHoveredOption(category)}
-                        onMouseLeave={() => setHoveredOption(null)}
+                        // onMouseEnter={() => setHoveredOption(category)}
+                        // onMouseLeave={() => setHoveredOption(null)}
                       >
                         {category}
                       </option>
                     ))}
-                    
                   </Field>
+
                   <ErrorMessage
                     name="category"
                     component="div"
@@ -246,57 +282,99 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                 </div>
               )}
 
-              {/* Sum */}
-              <div style={{ marginBottom: '15px' }}>
-                <label
-                  htmlFor="sum"
-                  style={{ display: 'block', fontWeight: 'bold' }}
-                >
-                  Sum:
-                </label>
-                <Field name="sum" type="text" placeholder="Enter sum" />
-                <ErrorMessage
+              {/* Sum and Date on the same line */}
+              <div
+                style={{
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  marginBottom: '30px',
+                }}
+              >
+                {/* Sum input */}
+                <Field
                   name="sum"
-                  component="div"
-                  style={{ color: 'red' }}
-                />
-              </div>
-
-              {/* Date */}
-              <div style={{ marginBottom: '15px' }}>
-                <label
-                  htmlFor="date"
-                  style={{ display: 'block', fontWeight: 'bold' }}
-                >
-                  Date:
-                </label>
-
-                <DatePicker
-                  selected={values.date ? new Date(values.date) : null}
-                  onChange={val => {
-                    console.log('Date selected:', val);
-                    setFieldValue('date', val);
+                  type="text"
+                  style={{
+                    width: '48%',
+                    backgroundColor: 'transparent',
+                    color: 'white',
+                    padding: '8px',
+                    border: 'none',
+                    borderBottom: '1px solid #fff',
+                    fontSize: '12px',
+                    outline: 'none',
+                    textAlign: 'center',
                   }}
-                  placeholderText="Select date"
-                  dateFormat="dd/MM/yyyy"
+                  placeholder="0.00"
+                  className={styles['custom-datepicker']}
                 />
 
-                <ErrorMessage
-                  name="date"
-                  component="div"
-                  style={{ color: 'red' }}
-                />
+                <div
+                  style={{
+                    width: '48%',
+                    position: 'relative',
+                  }}
+                >
+                  {/* Input pentru data cu iconița în interior */}
+                  <DatePicker
+                    selected={values.date ? new Date(values.date) : null}
+                    onChange={val => {
+                      console.log('Date selected:', val);
+                      setFieldValue('date', val);
+                    }}
+                    placeholderText={currentDate}
+                    dateFormat="dd/MM/yyyy"
+                    className={styles['custom-datepicker']}
+                    calendarClassName="react-datepicker"
+                  />
+
+                  {/* Iconița Calendar în interiorul input-ului */}
+                  <span
+                    style={{
+                      position: 'absolute',
+                      right: '10px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      color: 'white',
+                      pointerEvents: 'none',
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="currentColor"
+                      viewBox="0 0 16 16"
+                      width="20"
+                      height="20"
+                      color="grey"
+                    >
+                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
+                    </svg>
+                  </span>
+                </div>
               </div>
+
+              {/* Errors */}
+              <ErrorMessage
+                name="sum"
+                component="div"
+                style={{ color: 'red' }}
+              />
+              <ErrorMessage
+                name="date"
+                component="div"
+                style={{ color: 'red' }}
+              />
 
               {/* Comment */}
-              <div style={{ marginBottom: '15px' }}>
-                <label
-                  htmlFor="comment"
-                  style={{ display: 'block', fontWeight: 'bold' }}
-                >
-                  Comment:
-                </label>
-                <Field name="comment" type="text" placeholder="Enter comment" />
+              <div style={{ marginBottom: '35px' }}>
+                <Field
+                  name="comment"
+                  type="text"
+                  className={styles['custom-datepicker']}
+                  placeholder="Comment"
+                />
                 <ErrorMessage
                   name="comment"
                   component="div"

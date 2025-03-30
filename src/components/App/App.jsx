@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import TransactionTable from '../AddTransactinoForm/TransactionTable';
 import UpdateForm from '../AddTransactinoForm/UpdateForm';
@@ -9,35 +9,51 @@ import './App.css';
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
+const saveToLocalStorage = data => {
+  localStorage.setItem('transactions', JSON.stringify(data)); // Convertim obiectul în JSON
+};
+
+const getFromLocalStorage = () => {
+  const storedData = localStorage.getItem('transactions');
+  return storedData ? JSON.parse(storedData) : []; // Dacă există date, le parsează, altfel întoarce un array gol
+};
+
 const App = () => {
-  const [transactions, setTransactions] = useState([
-    {
-      id: '1',
-      date: '01-01-2023',
-      type: '+',
-      category: 'Salary',
-      comment: 'January salary',
-      sum: 3000,
-    },
-    {
-      id: '2',
-      date: '01-05-2023',
-      type: '-',
-      category: 'Groceries',
-      comment: 'Weekly shopping',
-      sum: 150,
-    },
-    {
-      id: '3',
-      date: '02-03-2025',
-      type: '-',
-      category: 'Car',
-      comment: 'Weekly shopping',
-      sum: 120,
-    },
-  ]);
+  // const [transactions, setTransactions] = useState([
+  //   {
+  //     id: '1',
+  //     date: '01-01-2023',
+  //     type: '+',
+  //     category: 'Salary',
+  //     comment: 'January salary',
+  //     sum: 3000,
+  //   },
+  //   {
+  //     id: '2',
+  //     date: '01-05-2023',
+  //     type: '-',
+  //     category: 'Groceries',
+  //     comment: 'Weekly shopping',
+  //     sum: 150,
+  //   },
+  //   {
+  //     id: '3',
+  //     date: '02-03-2025',
+  //     type: '-',
+  //     category: 'Car',
+  //     comment: 'Weekly shopping',
+  //     sum: 120,
+  //   },
+  // ]);
+  const [transactions, setTransactions] = useState(() =>
+    getFromLocalStorage()
+  );
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  useEffect(() => {
+    saveToLocalStorage(transactions);
+  }, [transactions]);
 
   const handleAddTransaction = newTransaction => {
     setTransactions(prevTransactions => [
@@ -46,8 +62,10 @@ const App = () => {
         ...newTransaction,
         id: `${prevTransactions.length + 1}`,
         sum: Number(newTransaction.sum),
-        type: newTransaction.type,
-        date: newTransaction.date.toLocaleDateString('en-GB'),
+        type: newTransaction.type === 'Income' ? '+' : '-',
+        date: newTransaction.date
+          .toLocaleDateString('en-GB')
+          .replace(/\//g, '.'),
       }, // genereaza un ID unic
     ]);
     setIsModalOpen(false); //
@@ -66,6 +84,7 @@ const App = () => {
 
   const handleSaveUpdate = updatedTransaction => {
     updatedTransaction.sum = Number(updatedTransaction.sum);
+    updatedTransaction.type = updatedTransaction.type === 'Income' ? '+' : '-';
     setTransactions(prevTransactions =>
       prevTransactions.map(transaction =>
         transaction.id === updatedTransaction.id
@@ -126,7 +145,6 @@ const App = () => {
       <AddTransactionForm
         open={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        // onAddTransaction={handleAddTransaction}
         onSubmit={handleAddTransaction}
       />
       <Box
