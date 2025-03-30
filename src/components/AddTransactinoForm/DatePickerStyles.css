@@ -1,0 +1,12 @@
+.react-datepicker {
+  background-image: url('../../images/noTransactions/dr-down.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.dropdown-option {
+  background-color: 'linear-gradient(135deg, #533DBA 0%, #50309A 25%, #6A46A5 75%, #855DAF 100%)',
+}
