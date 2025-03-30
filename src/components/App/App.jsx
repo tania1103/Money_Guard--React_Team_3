@@ -20,7 +20,6 @@ const getFromLocalStorage = () => {
 };
 
 const App = () => {
- 
   const [transactions, setTransactions] = useState(() =>
     getFromLocalStorage()
   );
@@ -72,7 +71,7 @@ const App = () => {
     const transactionType = updatedTransaction.type.trim();
 
     updatedTransaction.sum = Number(updatedTransaction.sum);
-    
+
     setTransactions(prevTransactions =>
       prevTransactions.map(transaction =>
         transaction.id === updatedTransaction.id
