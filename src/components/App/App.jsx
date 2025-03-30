@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
+import { v4 as uuidv4 } from 'uuid';
 import TransactionTable from '../AddTransactinoForm/TransactionTable';
 import UpdateForm from '../AddTransactinoForm/UpdateForm';
 import backgroundImage from '../../images/noTransactions/background-transactions.jpg';
@@ -10,41 +11,16 @@ import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 const saveToLocalStorage = data => {
-  localStorage.setItem('transactions', JSON.stringify(data)); // Convertim obiectul în JSON
+  localStorage.setItem('transactions', JSON.stringify(data));
 };
 
 const getFromLocalStorage = () => {
   const storedData = localStorage.getItem('transactions');
-  return storedData ? JSON.parse(storedData) : []; // Dacă există date, le parsează, altfel întoarce un array gol
+  return storedData ? JSON.parse(storedData) : [];
 };
 
 const App = () => {
-  // const [transactions, setTransactions] = useState([
-  //   {
-  //     id: '1',
-  //     date: '01-01-2023',
-  //     type: '+',
-  //     category: 'Salary',
-  //     comment: 'January salary',
-  //     sum: 3000,
-  //   },
-  //   {
-  //     id: '2',
-  //     date: '01-05-2023',
-  //     type: '-',
-  //     category: 'Groceries',
-  //     comment: 'Weekly shopping',
-  //     sum: 150,
-  //   },
-  //   {
-  //     id: '3',
-  //     date: '02-03-2025',
-  //     type: '-',
-  //     category: 'Car',
-  //     comment: 'Weekly shopping',
-  //     sum: 120,
-  //   },
-  // ]);
+ 
   const [transactions, setTransactions] = useState(() =>
     getFromLocalStorage()
   );
@@ -56,19 +32,27 @@ const App = () => {
   }, [transactions]);
 
   const handleAddTransaction = newTransaction => {
+    console.log('New Transaction:', newTransaction);
+    console.log('Transaction Type:', newTransaction.type);
+
+    const transactionType = (newTransaction.type || 'Expense').trim();
+    
+    const transactionDate =
+      typeof newTransaction.date === 'string'
+        ? newTransaction.date.replace(/\//g, '.')
+        : newTransaction.date.toLocaleDateString('en-GB').replace(/\//g, '.');
+
     setTransactions(prevTransactions => [
       ...prevTransactions,
       {
         ...newTransaction,
-        id: `${prevTransactions.length + 1}`,
+        id: uuidv4(),
         sum: Number(newTransaction.sum),
-        type: newTransaction.type === 'Income' ? '+' : '-',
-        date: newTransaction.date
-          .toLocaleDateString('en-GB')
-          .replace(/\//g, '.'),
+        type: transactionType,
+        date: transactionDate,
       }, // genereaza un ID unic
     ]);
-    setIsModalOpen(false); //
+    setIsModalOpen(false);
   };
 
   const handleDeleteTransaction = id => {
@@ -83,12 +67,20 @@ const App = () => {
   };
 
   const handleSaveUpdate = updatedTransaction => {
+    console.log('Updated Transaction Type:', updatedTransaction.type);
+
+    const transactionType = updatedTransaction.type.trim();
+
     updatedTransaction.sum = Number(updatedTransaction.sum);
-    updatedTransaction.type = updatedTransaction.type === 'Income' ? '+' : '-';
+    
     setTransactions(prevTransactions =>
       prevTransactions.map(transaction =>
         transaction.id === updatedTransaction.id
-          ? updatedTransaction
+          ? {
+              ...updatedTransaction,
+              type: transactionType === 'Income' ? '+' : '-',
+              sum: Number(updatedTransaction.sum),
+            }
           : transaction
       )
     );

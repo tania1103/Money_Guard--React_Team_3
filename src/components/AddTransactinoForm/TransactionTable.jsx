@@ -50,7 +50,7 @@ const theme = createTheme({
 });
 
 const TransactionTable = ({
-  transactions,
+  transactions=[],
   onDeleteTransaction,
   onUpdateTransaction,
 }) => (

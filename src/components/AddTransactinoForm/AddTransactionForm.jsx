@@ -114,6 +114,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
             date: null,
             category: '',
             comment: '',
+            // transactionType: 'Expense',
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
@@ -396,7 +397,7 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
                 <Button
                   type="submit"
                   sx={{
-                    padding: '10px 20px',
+                    // padding: '10px 20px',
                     backgroundColor: '#6a0dad',
                     color: '#fff',
                     border: 'none',
