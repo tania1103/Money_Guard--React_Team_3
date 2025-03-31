@@ -12,7 +12,6 @@ import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 
 const App = () => {
- 
   const [transactions, setTransactions] = useState(() =>
     getFromLocalStorage()
   );
