@@ -4,6 +4,7 @@ import TransactionTable from '../AddTransactinoForm/TransactionTable';
 import UpdateForm from '../AddTransactinoForm/UpdateForm';
 import backgroundImage from '../../images/noTransactions/background-transactions.jpg';
 import AddTransactionForm from '../AddTransactinoForm/AddTransactionForm';
+import EditTransactionForm from '../EditTransactionForm/EditTransactionForm';
 import './App.css';
 
 import { Fab } from '@mui/material';
@@ -45,11 +46,10 @@ const App = () => {
   //     sum: 120,
   //   },
   // ]);
-  const [transactions, setTransactions] = useState(() =>
-    getFromLocalStorage()
-  );
+  const [transactions, setTransactions] = useState(() => getFromLocalStorage());
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   useEffect(() => {
     saveToLocalStorage(transactions);
@@ -80,6 +80,7 @@ const App = () => {
   const handleUpdateTransaction = id => {
     const transaction = transactions.find(transaction => transaction.id === id);
     setSelectedTransaction(transaction);
+    setIsEditModalOpen(true);
   };
 
   const handleSaveUpdate = updatedTransaction => {
@@ -93,11 +94,13 @@ const App = () => {
       )
     );
     setSelectedTransaction(null);
+    setIsEditModalOpen(false);
     alert('Transaction updated!');
   };
 
   const handleCancelUpdate = () => {
     setSelectedTransaction(null);
+    setIsEditModalOpen(false);
   };
 
   return (
@@ -126,19 +129,11 @@ const App = () => {
             overflowY: 'auto',
           }}
         >
-          {selectedTransaction ? (
-            <UpdateForm
-              transaction={selectedTransaction}
-              onUpdate={handleSaveUpdate}
-              onCancel={handleCancelUpdate}
-            />
-          ) : (
-            <TransactionTable
-              transactions={transactions}
-              onDeleteTransaction={handleDeleteTransaction}
-              onUpdateTransaction={handleUpdateTransaction}
-            />
-          )}
+          <TransactionTable
+            transactions={transactions}
+            onDeleteTransaction={handleDeleteTransaction}
+            onUpdateTransaction={handleUpdateTransaction}
+          />
         </Box>
       </Box>
 
@@ -147,6 +142,17 @@ const App = () => {
         onClose={() => setIsModalOpen(false)}
         onSubmit={handleAddTransaction}
       />
+
+      {/* Edit Transaction Form */}
+      {selectedTransaction && (
+        <EditTransactionForm
+          open={isEditModalOpen}
+          onClose={handleCancelUpdate}
+          onSubmit={handleSaveUpdate}
+          transaction={selectedTransaction} // Pass the selected transaction
+        />
+      )}
+
       <Box
         sx={{
           position: 'fixed',

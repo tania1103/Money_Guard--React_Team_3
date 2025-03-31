@@ -1,0 +1,17 @@
+.custom-datepicker {
+    width: 100%;
+    background-color: transparent;
+    color: white;
+    padding: 8px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    font-size: 12px;
+    outline: none;
+    padding-left: 12px;
+  }
+  .custom-datepicker::placeholder {
+    color: white;
+    opacity: 0.8;
+    font-size: 16px;
+  }
+  
