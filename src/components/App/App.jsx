@@ -1,4 +1,3 @@
-//tania
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
@@ -42,7 +41,7 @@ function App() {
           path="/"
           element={<PrivateRoute component={<DashboardPage />} />}
         >
-          <Route index element={<HomeTab />} />
+           <Route index element={<HomeTab />} />
 
           <Route path="statistics" element={<StatisticsTab />} />
           <Route
