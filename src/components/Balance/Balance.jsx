@@ -1,3 +1,4 @@
+
 import { useSelector } from 'react-redux';
 import { selectUser } from '../../redux/auth/selectors';
 import s from './Balance.module.css';
@@ -20,3 +21,5 @@ const Balance = () => {
 };
 
 export default Balance;
+
+
