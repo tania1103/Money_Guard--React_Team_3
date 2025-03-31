@@ -1,1 +1,0 @@
-(self.webpackChunkmoney_guard=self.webpackChunkmoney_guard||[]).push([[592],{592:()=>{}}]);
