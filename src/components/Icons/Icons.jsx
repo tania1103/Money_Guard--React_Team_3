@@ -1,3 +1,4 @@
+//TANIA
 import Sprite from "../../../src/images/symbol-defs.svg";
 export const Icons = ({ className, width = 12, height = 12, name }) => {
   return (
