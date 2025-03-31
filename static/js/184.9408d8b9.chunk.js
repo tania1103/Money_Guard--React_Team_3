@@ -1,2 +1,0 @@
-(self.webpackChunkmoney_guard=self.webpackChunkmoney_guard||[]).push([[184],{1354:()=>{},2534:()=>{},7184:(s,e,n)=>{"use strict";n.r(e),n.d(e,{default:()=>j});var u=n(3003),r=n(5043),c=n(1354),t=n.n(c),a=n(8610),d=n.n(a),f=n(2534),i=n.n(f),l=n(2334),o=n(5278),h=n(579);const j=()=>{const{isMobile:s}=(0,o.Q)(),e=(0,u.wA)();return(0,r.useEffect)((()=>{e((0,l.I0)())}),[e]),(0,h.jsxs)("div",{children:[s&&(0,h.jsx)(d(),{}),(0,h.jsx)(i(),{}),(0,h.jsx)(t(),{})]})}},8610:()=>{}}]);
-//# sourceMappingURL=184.9408d8b9.chunk.js.map

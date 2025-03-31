@@ -1,2 +1,0 @@
-(self.webpackChunkmoney_guard=self.webpackChunkmoney_guard||[]).push([[428],{4428:(e,s,u)=>{"use strict";u.r(s),u.d(s,{default:()=>c});var a=u(9730),n=u.n(a),r=u(579);const c=()=>(0,r.jsx)(n(),{})},9730:()=>{}}]);
-//# sourceMappingURL=428.ec6a95a0.chunk.js.map
