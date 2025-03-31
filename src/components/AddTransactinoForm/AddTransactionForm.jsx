@@ -29,31 +29,18 @@ const validationSchema = Yup.object().shape({
 
 const AddTransactionForm = ({ open, onClose, onSubmit }) => {
   const [transactionType, setTransactionType] = useState('Expense');
-//   const [hoveredOption, setHoveredOption] = useState(null);
-
+  
   const handleToggleChange = event => {
     setTransactionType(event.target.checked ? 'Expense' : 'Income');
   };
-
-  const formatDate = date => {
-    try {
-      return new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.');
-    } catch (e) {
-      return '';
-    }
-    };
-    const currentDate = new Date()
+  
+  const currentDate = new Date()
       .toLocaleDateString('en-GB', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
       })
       .replace(/\//g, '.');
-
-  const parseDate = date => {
-    const parsedDate = new Date(date);
-    return isNaN(parsedDate.getTime()) ? null : parsedDate;
-    };
 
   return (
     <Modal
@@ -118,9 +105,9 @@ const AddTransactionForm = ({ open, onClose, onSubmit }) => {
           }}
           validationSchema={validationSchema}
           onSubmit={(values, { resetForm }) => {
-            const formattedDate = values.date
-              ? values.date.toLocaleDateString('en-GB').replace(/\//g, '.') // formateaza în DD/MM/YYYY
-              : null;
+            // const formattedDate = values.date
+            //   ? values.date.toLocaleDateString('en-GB').replace(/\//g, '.') // formateaza în DD/MM/YYYY
+            //   : null;
             const type = transactionType === 'Income' ? '+' : '-';
             onSubmit({ ...values, type });
             resetForm();

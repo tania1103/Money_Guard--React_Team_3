@@ -1,7 +1,10 @@
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import { TableRow, TableCell, Button } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+// import { deleteTransactionThunk } from '../../redux/transaction/transactionOperations';
+
 
 const theme = createTheme({
   components: {
@@ -32,52 +35,62 @@ const TransactionItem = ({
   sum,
   onDeleteTransaction,
   onUpdateTransaction,
-}) => (
-  <ThemeProvider theme={theme}>
-    <TableRow>
-      <TableCell>
-        {typeof date === 'string'
-          ? date.replace(/\//g, '.')
-          : new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')}
-      </TableCell>
-      <TableCell>{type}</TableCell>
-      <TableCell>{category}</TableCell>
-      <TableCell>{comment}</TableCell>
-      <TableCell className={type === '+' ? 'income' : 'expense'}>
-        {sum}
-      </TableCell>
-      <TableCell>
-        <Button
-          startIcon={<EditIcon />}
-          onClick={() => onUpdateTransaction(id)}
-          style={{
-            color: 'white',
-            background: 'none',
-            fontSize: '24px',
-            cursor: 'pointer',
-            marginRight: '5px',
-          }}
-        ></Button>
-        <Button
-          variant="contained"
-          onClick={() => onDeleteTransaction(id)}
-          sx={{
-            background: 'linear-gradient(to right, orange, violet)',
-            color: 'white',
-            '&:hover': {
-              background: 'linear-gradient(to right, darkorange, darkviolet)',
-            },
-            borderRadius: '20px',
-            padding: '10px 20px',
-            fontWeight: 'bold',
-          }}
-        >
-          Delete
-        </Button>
-      </TableCell>
-    </TableRow>
-  </ThemeProvider>
-);
+}) => {
+
+  const dispatch = useDispatch();
+
+  // const handleDelete = () => {
+  //   dispatch(deleteTransactionThunk(id));
+  // };
+  
+  return (
+    <ThemeProvider theme={theme}>
+      <TableRow>
+        <TableCell>
+          {typeof date === 'string'
+            ? date.replace(/\//g, '.')
+            : new Date(date).toLocaleDateString('en-GB').replace(/\//g, '.')}
+        </TableCell>
+        <TableCell>{type}</TableCell>
+        <TableCell>{category}</TableCell>
+        <TableCell>{comment}</TableCell>
+        <TableCell className={type === '+' ? 'income' : 'expense'}>
+          {sum}
+        </TableCell>
+        <TableCell>
+          <Button
+            startIcon={<EditIcon />}
+            onClick={() => onUpdateTransaction(id)}
+            style={{
+              color: 'white',
+              background: 'none',
+              fontSize: '24px',
+              cursor: 'pointer',
+              marginRight: '5px',
+            }}
+          ></Button>
+          <Button
+            variant="contained"
+            onClick={() => onDeleteTransaction(id)}
+            // onClick={handleDelete}
+            sx={{
+              background: 'linear-gradient(to right, orange, violet)',
+              color: 'white',
+              '&:hover': {
+                background: 'linear-gradient(to right, darkorange, darkviolet)',
+              },
+              borderRadius: '20px',
+              padding: '10px 20px',
+              fontWeight: 'bold',
+            }}
+          >
+            Delete
+          </Button>
+        </TableCell>
+      </TableRow>
+    </ThemeProvider>
+  );
+};
 
 TransactionItem.propTypes = {
   id: PropTypes.string.isRequired,

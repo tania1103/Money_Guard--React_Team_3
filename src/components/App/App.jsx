@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
+import { saveToLocalStorage, getFromLocalStorage } from '../TransactionsUtils/localStorageUtils';
 import TransactionTable from '../AddTransactinoForm/TransactionTable';
 import UpdateForm from '../AddTransactinoForm/UpdateForm';
 import backgroundImage from '../../images/noTransactions/background-transactions.jpg';
@@ -9,15 +10,6 @@ import './App.css';
 
 import { Fab } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-
-const saveToLocalStorage = data => {
-  localStorage.setItem('transactions', JSON.stringify(data));
-};
-
-const getFromLocalStorage = () => {
-  const storedData = localStorage.getItem('transactions');
-  return storedData ? JSON.parse(storedData) : [];
-};
 
 const App = () => {
  
@@ -31,12 +23,13 @@ const App = () => {
     saveToLocalStorage(transactions);
   }, [transactions]);
 
+ 
   const handleAddTransaction = newTransaction => {
     console.log('New Transaction:', newTransaction);
     console.log('Transaction Type:', newTransaction.type);
 
     const transactionType = (newTransaction.type || 'Expense').trim();
-    
+
     const transactionDate =
       typeof newTransaction.date === 'string'
         ? newTransaction.date.replace(/\//g, '.')
@@ -72,7 +65,7 @@ const App = () => {
     const transactionType = updatedTransaction.type.trim();
 
     updatedTransaction.sum = Number(updatedTransaction.sum);
-    
+
     setTransactions(prevTransactions =>
       prevTransactions.map(transaction =>
         transaction.id === updatedTransaction.id
