@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import toast from "react-hot-toast";
+import Notiflix from 'notiflix';
 import { toasterCustomStyles } from "../../helpers/toasterCustomStyles";
 
 axios.defaults.baseURL = "https://wallet.b.goit.study";
@@ -19,6 +20,7 @@ export const registerThunk = createAsyncThunk(
     try {
       const { data } = await axios.post("/api/auth/sign-up", credentials);
       setAuthHeader(data.token);
+      Notiflix.Notify.success(`Welcome, ${data.user.username}!`);
       return data;
     } catch (error) {
       toast.error(
@@ -36,6 +38,8 @@ export const loginThunk = createAsyncThunk(
     try {
       const { data } = await axios.post("/api/auth/sign-in", credentials);
       setAuthHeader(data.token);
+      console.log(data)
+      Notiflix.Notify.success(`Welcome back, ${data.user.username}!`);
       return data;
     } catch (error) {
       toast.error(
@@ -53,6 +57,7 @@ export const logoutThunk = createAsyncThunk(
     try {
       await axios.delete("/api/auth/sign-out");
       clearAuthHeader();
+      Notiflix.Notify.success('Logout was successful!');
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }
