@@ -10,6 +10,7 @@ import { selectCategories } from '../../redux/transaction/selectors';
 import { closeModal } from '../../redux/modal/slice';
 import { validationSchema } from '../../helpers/addTransactionSchema';
 import { getTransactionCategoryID } from '../../helpers/transactionCategory';
+import Notiflix from 'notiflix';
 import ToggleModal from '../ToggleModal/ToggleModal';
 import CustomIconForCalendar from './CustomIconForCalendar';
 
@@ -57,11 +58,12 @@ const AddTransactionForm = () => {
     dispatch(addTransaction(newTransaction))
       .unwrap()
       .then(() => {
+        Notiflix.Notify.success('Transaction added successfully!');
         options.resetForm();
         handleClickCancel();
       })
       .catch(error => {
-        throw new Error(error.message);
+        Notiflix.Notify.failure(`Failed to add transaction: ${error.message}`);
       });
   };
 
@@ -82,7 +84,6 @@ const AddTransactionForm = () => {
               placeholder="Select a category"
               options={categories}
               required
-              // autoFocus
               onChange={handleCategoryName}
               classNamePrefix="react-select"
             />

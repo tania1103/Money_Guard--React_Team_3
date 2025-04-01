@@ -1,5 +1,6 @@
 //FLORI
 import { useDispatch, useSelector } from 'react-redux';
+import Notiflix from 'notiflix';
 
 import { Icons } from '../Icons/Icons';
 import { openEditModal } from '../../redux/modal/slice';
@@ -21,9 +22,23 @@ const TransactionsItem = ({ transaction }) => {
   const categories = useSelector(selectCategories);
   const category = getTransactionCategory(transaction.categoryId, categories);
   const dispatch = useDispatch();
+
   const handleClick = () => {
     dispatch(openEditModal());
     dispatch(setCurrentTransaction({ transaction }));
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteTransaction(transaction.id))
+      .unwrap()
+      .then(() => {
+        Notiflix.Notify.success('Transaction deleted successfully!');
+      })
+      .catch(error => {
+        Notiflix.Notify.failure(
+          `Failed to delete transaction: ${error.message}`
+        );
+      });
   };
 
   const { isMobile } = useMedia();
@@ -43,12 +58,7 @@ const TransactionsItem = ({ transaction }) => {
             <Icons className={s.editIcon} name="pencil" />
             <p className={s.textEdit}>Edit</p>
           </button>
-          <button
-            className={s.deleteBtn}
-            onClick={() => {
-              dispatch(deleteTransaction(transaction.id));
-            }}
-          >
+          <button className={s.deleteBtn} onClick={handleDelete}>
             Delete
           </button>
         </div>
@@ -81,12 +91,7 @@ const TransactionsItem = ({ transaction }) => {
         {sum}
       </td>
       <td className={s.actionBtn}>
-        <button
-          className={s.deleteBtn}
-          onClick={() => {
-            dispatch(deleteTransaction(transaction.id));
-          }}
-        >
+        <button className={s.deleteBtn} onClick={handleDelete}>
           Delete
         </button>
         <button type="submit" onClick={handleClick} className={s.editBtn}>
