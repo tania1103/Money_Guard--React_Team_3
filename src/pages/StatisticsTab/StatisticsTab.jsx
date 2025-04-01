@@ -3,7 +3,7 @@ import Chart from '../../components/Chart/Chart';
 import StatisticsDashboard from '../../components/StatisticsDashboard/StatisticsDashboard';
 import StatisticsTable from '../../components/StatisticsTable/StatisticsTable';
 
-import s from './StatisticTab.module.css';
+import s from './StatisticsTab.module.css';
 
 const StatisticsTab = () => {
   return (
@@ -21,4 +21,3 @@ const StatisticsTab = () => {
 };
 
 export default StatisticsTab;
-

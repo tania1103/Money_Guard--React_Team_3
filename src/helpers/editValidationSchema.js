@@ -1,15 +1,15 @@
-import * as Yup from "yup";
+import * as yup from 'yup';
 
-export const validationSchema = Yup.object().shape({
-  type: Yup.string().required("Transaction type is required"),
-  comment: Yup.string()
-    .required("Comment is required")
-    .max(100, "Comment cannot exceed 100 characters"),
-  amount: Yup.number()
-    .typeError("Amount must be a number")
-    .required("Amount is required")
-    .positive("Amount must be positive"),
-  transactionDate: Yup.date()
-    .typeError("Invalid date")
-    .required("Transaction date is required"),
-});
+export const editValidationSchema = () => {
+  return yup.object().shape({
+    amount: yup
+      .number()
+      .typeError('Amount must be a number')
+      .positive('Amount must be a positive number')
+      .required('Amount is required'),
+    comment: yup
+      .string()
+      .max(100, 'Comment cannot exceed 100 characters')
+      .required('Comment is required'),
+  });
+};
