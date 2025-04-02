@@ -5,7 +5,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTransaction } from '../../redux/transaction/operations';
 import { useState } from 'react';
-import Notiflix from 'notiflix'; // Importăm Notiflix
+import Notiflix from 'notiflix';
 
 import {
   selectCategories,
@@ -49,11 +49,13 @@ const EditTransactionForm = () => {
       await dispatch(updateTransaction(fetchData)).unwrap();
 
       // Notificare de succes
-      if (transaction.type === 'INCOME') {
-        Notiflix.Notify.success('Income updated successfully!');
-      } else if (transaction.type === 'EXPENSE') {
-        Notiflix.Notify.success('Expense updated successfully!');
-      }
+      // if (transaction.type === 'INCOME') {
+      //   Notiflix.Notify.success('Income updated successfully!');
+      // } else if (transaction.type === 'EXPENSE') {
+      //   Notiflix.Notify.success('Expense updated successfully!');
+      // }
+
+      Notiflix.Notify.success(`${fetchData.type} updated successfully!`);
 
       options.resetForm();
       dispatch(closeModal());
@@ -61,11 +63,13 @@ const EditTransactionForm = () => {
       setBackendError(error.message);
 
       // Notificare de eroare
-      if (transaction.type === 'INCOME') {
-        Notiflix.Notify.failure('Failed to update income. Please try again.');
-      } else if (transaction.type === 'EXPENSE') {
-        Notiflix.Notify.failure('Failed to update expense. Please try again.');
-      }
+      // if (transaction.type === 'INCOME') {
+      //   Notiflix.Notify.failure('Failed to update income. Please try again.');
+      // } else if (transaction.type === 'EXPENSE') {
+      //   Notiflix.Notify.failure('Failed to update expense. Please try again.');
+      // }
+
+      Notiflix.Notify.failure(`Failed to update ${fetchData.type}. Please try again.`);
     } finally {
       setIsLoading(false);
     }
