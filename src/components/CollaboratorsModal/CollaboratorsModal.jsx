@@ -4,10 +4,12 @@ import { selectIsCollaboratorsModalOpen } from '../../redux/modal/selectors';
 import { closeModal } from '../../redux/modal/slice';
 import s from './CollaboratorsModal.module.css';
 import ImgTania from '../../images/tania.jpeg';
+
 import ImgAlexandra from '../../images/alexandra.jpg';
 import ImgGabriel from '../../images/gabi.jpeg';
 import ImgAura from '../../images/aura.png';
 import ImgFlori from '../../images/flori.JPG';
+
 
 const collaborators = [
   {
@@ -20,6 +22,7 @@ const collaborators = [
     pic: ImgAlexandra,
     role: 'Scrum Master',
   },
+
   { name: 'Aura Dragan', pic: ImgAura, role: 'Developer' },
   {
     name: 'Flori Moise',
@@ -28,6 +31,7 @@ const collaborators = [
   },
   {
     name: 'Adina Gadalean',
+
     pic: 'src/images/adina.jpeg',
     role: 'Developer',
   },
