@@ -1,0 +1,10 @@
+.collaboratorsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.collaborator {
+  display: flex;
+  align-items: center;
+}
