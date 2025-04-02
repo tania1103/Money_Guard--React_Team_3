@@ -32,6 +32,7 @@
 .label {
   width: 280px;
   margin: 0 auto;
+  margin-bottom: 40px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -41,6 +42,8 @@
   width: 300px;
   max-height: 50px;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .link {
@@ -136,6 +139,17 @@
   position: absolute;
   stroke: none;
   margin-top: 4px;
+}
+
+.togglePassButton {
+  position: absolute;
+  right: 20px; /* Ajustează poziția în funcție de design */
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .error {

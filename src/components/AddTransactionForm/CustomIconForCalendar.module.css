@@ -36,7 +36,7 @@
     180deg,
     #855daf99 13%,
     #6a46a5 53%,
-    #50309a 70%,
+    #50309a 60%,
     #6a46a5 100%
   );
   border: none;
@@ -53,7 +53,7 @@
 }
 
 :global .react-datepicker__day {
-  color: var(--white-40);
+  color:  rgba(28, 15, 94, 0.7);
 }
 
 :global .react-datepicker__day--disabled {
@@ -72,7 +72,7 @@
   color: rgba(255, 255, 255, 0.811);
 }
 :global .react-datepicker__day:hover {
-  background: rgba(73, 95, 238, 0.847);
+  background: rgba(65, 88, 234, 0.847);
   transform: scale(1.1);
 }
 

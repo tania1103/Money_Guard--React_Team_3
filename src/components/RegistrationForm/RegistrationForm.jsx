@@ -2,15 +2,22 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
 import PasswordStrengthBar from "react-password-strength-bar";
 
 import { Icons } from "../Icons/Icons";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
 import { registerThunk } from "../../redux/auth/operations";
 import { validationSchemaRegister } from "../../helpers/registrationSchema";
 import s from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+
+  const [showPass, setShowPass] = useState(false); // Stare pentru vizibilitatea parolei
+    const togglePassVisibility = () => setShowPass(!showPass); // Funcție pentru a alterna vizibilitatea
+
   const onSubmit = ({ email, username, password }, { resetForm }) => {
     dispatch(registerThunk({ email, username, password }));
     resetForm();
@@ -91,11 +98,22 @@ const RegistrationForm = () => {
                   className={s.iconName}
                 />
                 <Field
-                  type="password"
+                  type={showPass ? "text" : "password"} // Schimbăm tipul câmpului
                   name="password"
                   placeholder="Password"
                   className={s.regInput}
                 />
+                <button
+                                type="button"
+                                className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
+                                onClick={togglePassVisibility}
+                              >
+                                {showPass ? (
+                                  <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
+                                ) : (
+                                  <AiOutlineEye size={20} color="var(--white-40)" />
+                                )}
+                              </button>
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -112,12 +130,22 @@ const RegistrationForm = () => {
                   className={s.iconName}
                 />
                 <Field
-                  type="password"
+                  type={showPass ? "text" : "password"} // Schimbăm tipul câmpului
                   name="confirmPassword"
                   placeholder="Confirm Password"
                   className={s.regInput}
                 />
-
+  <button
+                                type="button"
+                                className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
+                                onClick={togglePassVisibility}
+                              >
+                                {showPass ? (
+                                  <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
+                                ) : (
+                                  <AiOutlineEye size={20} color="var(--white-40)" />
+                                )}
+                              </button>
                 <PasswordStrengthBar
                   className={s.bar}
                   scoreWordClassName={s.infoBar}
