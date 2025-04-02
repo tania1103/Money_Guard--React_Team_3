@@ -4,33 +4,22 @@
   right: 40px;
   width: 44px;
   height: 44px;
-  background-color: #6a0dad;
+  background: linear-gradient(145deg, #ff7eb3, #8a2be2);
   color: white;
   border: none;
   border-radius: 50%;
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  transition: background-color 0.3s ease;
-}
-
-@media screen and (max-width: 768px) {
-  .addModalBtn {
-    bottom: 20px;
-    right: 80px;
-  }
+  transition: background-color 0.3s, transform 0.3s;
 }
 
 .addModalBtn:hover {
-  background-color: #5a0c9d;
-}
+  transform: scale(1.1);
 
-.initial {
-  color: var(--white);
-  font-size: 24px;
-  font-weight: 500;
+  background: linear-gradient(65deg, #ff7eb3, #8a2be2);
 }
