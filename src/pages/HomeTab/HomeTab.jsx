@@ -8,6 +8,7 @@ import TransactionsList from '../../components/TransactionsList/TransactionsList
 
 import { getTransactions } from '../../redux/transaction/operations';
 import { useMedia } from '../../hooks/useMedia';
+import AddModalButton from 'components/ModalCollaboratorsButton/ModalCollaboratorsButton';
 
 const HomeTab = () => {
   const { isMobile } = useMedia();
@@ -22,6 +23,7 @@ const HomeTab = () => {
       {isMobile && <Balance />}
       <TransactionsList />
       <AddButton />
+      <AddModalButton />
     </div>
   );
 };

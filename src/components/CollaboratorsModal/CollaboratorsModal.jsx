@@ -1,47 +1,69 @@
-import React from 'react';
-import { Modal, Box, Typography, Avatar } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
+import ModalWrapper from '../ModalWrapper/ModalWrapper';
+import { selectIsCollaboratorsModalOpen } from '../../redux/modal/selectors';
+import { closeModal } from '../../redux/modal/slice';
 import s from './CollaboratorsModal.module.css';
+import ImgTania from '../../images/tania.jpeg';
+import ImgAlexandra from '../../images/alexandra.png';
+import ImgGabriel from '../../images/gabi.jpeg';
 
 const collaborators = [
-  { name: 'Alexandra Moldovan', pic: 'path/to/alexandra-pic.jpg' },
-  { name: 'John Doe', pic: 'path/to/john-pic.jpg' },
-  { name: 'Jane Smith', pic: 'path/to/jane-pic.jpg' },
+  {
+    name: 'Tatiana Culeac',
+    pic: ImgTania,
+    role: 'Team Lead',
+  },
+  {
+    name: 'Alexandra Stavila',
+    pic: ImgAlexandra,
+    role: 'Scrum Master',
+  },
+  { name: 'Aura Dragan', pic: 'path/to/jane-pic.jpg', role: 'Developer' },
+  {
+    name: 'Flori Moise',
+    pic: 'src/images/tania.jpeg',
+    role: 'Developer',
+  },
+  {
+    name: 'Adina Gadalean',
+    pic: 'src/images/tania.jpeg',
+    role: 'Developer',
+  },
+  {
+    name: 'Gabriel Dutu',
+    pic: ImgGabriel,
+    role: 'Developer',
+  },
 ];
 
-const CollaboratorsModal = ({ open, onClose }) => {
+const CollaboratorsModalTransaction = () => {
+  const dispatch = useDispatch();
+  const isCollaboratorsModalOpen = useSelector(selectIsCollaboratorsModalOpen);
+
+  const handleClose = () => {
+    dispatch(closeModal());
+  };
+
   return (
-    <Modal open={open} onClose={onClose} aria-labelledby="collaborators-modal">
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          bgcolor: 'white',
-          boxShadow: 24,
-          p: 4,
-          borderRadius: 2,
-          width: 400,
-        }}
-      >
-        <Typography variant="h6" component="h2" sx={{ mb: 2 }}>
-          Collaborators
-        </Typography>
+    <ModalWrapper isOpenModal={isCollaboratorsModalOpen} onClose={handleClose}>
+      <div className={s.modalContainer}>
+        <h2 className={s.title}>Collaborators</h2>
         <div className={s.collaboratorsList}>
           {collaborators.map((collaborator, index) => (
             <div key={index} className={s.collaborator}>
-              <Avatar
+              <img
                 src={collaborator.pic}
                 alt={collaborator.name}
-                sx={{ width: 50, height: 50, mr: 2 }}
+                className={s.avatar}
               />
-              <Typography>{collaborator.name}</Typography>
+              <p className={s.name}>{collaborator.name}</p>
+              <span className={s.role}>{collaborator.role}</span>
             </div>
           ))}
         </div>
-      </Box>
-    </Modal>
+      </div>
+    </ModalWrapper>
   );
 };
 
-export default CollaboratorsModal;
+export default CollaboratorsModalTransaction;

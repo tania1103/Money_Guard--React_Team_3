@@ -1,7 +1,6 @@
-//GABI
 import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
 
 import Navigation from '../../components/Navigation/Navigation';
@@ -9,6 +8,8 @@ import Header from '../../components/Header/Header';
 import ModalLogOut from '../../components/ModalLogOut/ModalLogOut';
 import ModalEditTransaction from '../../components/ModalEditTransaction/ModalEditTransaction';
 import ModalAddTransaction from '../../components/ModalAddTransaction/ModalAddTransaction';
+import ModalCollaboratorsButton from '../../components/ModalCollaboratorsButton/ModalCollaboratorsButton';
+import CollaboratorsModalTransaction from '../../components/CollaboratorsModal/CollaboratorsModal';
 import Balance from '../../components/Balance/Balance';
 import Currency from '../../components/Currency/Currency';
 import LoaderDashboard from '../../components/LoaderDashboard/LoaderDashboard';
@@ -17,12 +18,14 @@ import {
   getTransactions,
   getTransactionsCategories,
 } from '../../redux/transaction/operations';
+import { selectIsCollaboratorsModalOpen } from '../../redux/modal/selectors';
 import { useMedia } from '../../hooks/useMedia';
 import s from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
   const { isMobile } = useMedia();
+  const isCollaboratorsModalOpen = useSelector(selectIsCollaboratorsModalOpen);
 
   useEffect(() => {
     dispatch(getTransactions());
@@ -60,6 +63,8 @@ const DashboardPage = () => {
         <ModalLogOut />
         <ModalEditTransaction />
         <ModalAddTransaction />
+        <ModalCollaboratorsButton />
+        {isCollaboratorsModalOpen && <CollaboratorsModalTransaction />}
         <Toaster />
       </div>
     </div>
