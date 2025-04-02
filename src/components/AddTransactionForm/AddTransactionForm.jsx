@@ -29,6 +29,7 @@ const AddTransactionForm = () => {
     .map(category => ({
       value: category.id,
       label: category.name,
+      isDisabled: category.name === 'Main expenses',
     }));
 
   const handleCategoryName = selectedCategory => {
@@ -67,6 +68,13 @@ const AddTransactionForm = () => {
       });
   };
 
+  const customStyles = {
+    option: (provided, state) => ({
+      ...provided,
+      color: state.isDisabled ? '#a9a9a9' : '#fff',
+    }),
+  };
+
   return (
     <div className={s.modalContainer}>
       <h2 className={s.title}>Add transaction</h2>
@@ -86,6 +94,7 @@ const AddTransactionForm = () => {
               required
               onChange={handleCategoryName}
               classNamePrefix="react-select"
+              styles={customStyles}
             />
           )}
           <div className={s.amountDateInputWrapper}>
