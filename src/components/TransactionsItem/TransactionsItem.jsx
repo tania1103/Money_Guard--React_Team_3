@@ -32,7 +32,7 @@ const TransactionsItem = ({ transaction }) => {
     dispatch(deleteTransaction(transaction.id))
       .unwrap()
       .then(() => {
-        Notiflix.Notify.success('Transaction deleted successfully!');
+        Notiflix.Notify.success(`${transaction.type} deleted successfully!`);
       })
       .catch(error => {
         Notiflix.Notify.failure(
