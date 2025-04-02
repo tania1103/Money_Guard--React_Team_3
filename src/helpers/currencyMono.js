@@ -6,7 +6,7 @@ const CURRENCY_CACHE_KEY = "currencyRates";
 
 const fetchCurrencyData = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}?app_id=${API_KEY}`);
+    const response = await axios.get(`${BASE_URL}?app_id=${API_KEY}&base=RON`);
     return response.data.rates; // Obținem doar cursurile valutare
   } catch (error) {
     throw new Error("Failed to fetch data from Open Exchange Rates: " + error.message);
