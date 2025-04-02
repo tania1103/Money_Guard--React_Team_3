@@ -71,7 +71,7 @@ const AddTransactionForm = () => {
   const customStyles = {
     option: (provided, state) => ({
       ...provided,
-      color: state.isDisabled ? '#a9a9a9' : '#fff',
+      color: state.isDisabled ? '#d4d4d4' : '#fff',
     }),
   };
 
