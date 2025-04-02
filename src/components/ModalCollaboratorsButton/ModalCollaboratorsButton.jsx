@@ -1,26 +1,21 @@
-import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { openCollaboratorsModal } from '../../redux/modal/slice';
 import { Icons } from '../Icons/Icons';
-import CollaboratorsModal from '../CollaboratorsModal/CollaboratorsModal';
-import s from './AddModalButton.module.css';
+import s from './ModalCollaboratorsButton.module.css';
 
-const AddModalButton = () => {
-  const [isCollaboratorsModalOpen, setIsCollaboratorsModalOpen] =
-    useState(false);
+const ModalCollaboratorsButton = () => {
+  const dispatch = useDispatch();
 
   return (
-    <>
-      <button
-        className={s.addModalBtn}
-        onClick={() => setIsCollaboratorsModalOpen(true)}
-      >
-        <Icons className={s.plusIcon} name={'team'} width={20} height={20} />
-      </button>
-      <CollaboratorsModal
-        open={isCollaboratorsModalOpen}
-        onClose={() => setIsCollaboratorsModalOpen(false)}
-      />
-    </>
+    <button
+      className={s.addModalBtn}
+      onClick={() => {
+        dispatch(openCollaboratorsModal());
+      }}
+    >
+      <span className={s.initial}>C</span>
+    </button>
   );
 };
 
-export default AddModalButton;
+export default ModalCollaboratorsButton;
