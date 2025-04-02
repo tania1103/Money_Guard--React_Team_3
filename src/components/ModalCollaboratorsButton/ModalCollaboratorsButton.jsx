@@ -1,6 +1,5 @@
 import { useDispatch } from 'react-redux';
 import { openCollaboratorsModal } from '../../redux/modal/slice';
-import { Icons } from '../Icons/Icons';
 import s from './ModalCollaboratorsButton.module.css';
 
 const ModalCollaboratorsButton = () => {
