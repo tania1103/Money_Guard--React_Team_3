@@ -4,10 +4,6 @@
   "private": true,
   "homepage": "https://tania1103.github.io/Money_Guard--React_Team_3/",
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "@mui/icons-material": "^7.0.1",
-    "@mui/material": "^7.0.1",
     "@redux-devtools/extension": "^3.3.0",
     "@reduxjs/toolkit": "^2.6.1",
     "@testing-library/jest-dom": "^5.16.3",
@@ -20,6 +16,7 @@
     "framer-motion": "^12.6.2",
     "lucide-react": "^0.485.0",
     "modern-normalize": "^3.0.1",
+    "notiflix": "^3.2.8",
     "react": "^18.1.0",
     "react-chartjs-2": "^5.3.0",
     "react-datepicker": "^8.2.1",
