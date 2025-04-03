@@ -116,7 +116,7 @@
   border-bottom: 1px solid #ccc;
   color: var(--white-40);
   padding-left: 30px;
-  padding-right: 40px; /* Adăugăm spațiu pentru a evita suprapunerea cu butonul */
+   padding-right: 40px; /*Adăugăm spațiu pentru a evita suprapunerea cu butonul */
   box-sizing: border-box;
   padding-bottom: 8px;
   font-size: 18px;
@@ -160,17 +160,15 @@
 .error {
   color: var(--yellow);
   font-size: 12px;
-  margin-top: 5px;
-  position: absolute; /* Poziționare relativă la containerul inputului */
-  left: 0; /* Aliniere la marginea stângă a containerului */
+  margin-top: 3px;
+  position: fixed; /* Poziționare relativă la containerul inputului */
 }
 
 .lastError {
   color: var(--yellow);
   font-size: 12px;
-  margin-top: 5px;
-  position: absolute; /* Poziționare relativă la containerul inputului */
-  left: 0; /* Aliniere la marginea stângă a containerului */
+  margin-top: 10px;
+  position: fixed; /* Poziționare relativă la containerul inputului */
 }
 
 .success {
@@ -193,7 +191,9 @@
 .bar div {
   transition: all 0.2s ease;
   height: 100%; /* Grosimea barei active */
-  border-radius: 2px; /* Colțuri rotunjite */
+  border-radius: 2px; /*Colțuri rotunjite */
+
+
 }
 
 .infoBar {
