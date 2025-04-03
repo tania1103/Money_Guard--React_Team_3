@@ -1,70 +1,59 @@
-import axios from "axios";
+import axios from 'axios';
 
-const API_KEY = "b70a6b3522db4135949be5b7b0660667"; // Cheia API pentru Open Exchange Rates
-const BASE_URL = "https://openexchangerates.org/api/latest.json";
-const CURRENCY_CACHE_KEY = "currencyRates";
+const API_KEY = 'b70a6b3522db4135949be5b7b0660667';
+const BASE_URL = 'https://openexchangerates.org/api/latest.json';
+const CURRENCY_CACHE_KEY = 'currencyRatesCache';
 
-// Funcție pentru a obține datele valutare de la API
-const fetchCurrencyData = async () => {
+export const getCurrencyRates = async () => {
+  const cachedData = getCachedData();
+  if (cachedData) return cachedData;
+
   try {
     const response = await axios.get(`${BASE_URL}?app_id=${API_KEY}`);
-    return response.data.rates; // Returnăm doar cursurile valutare
+
+    const rates = response.data.rates;
+    const ronPerUsd = rates.RON;
+
+    // Ensure proper number formatting
+    const formatRate = value => {
+      return parseFloat(value).toFixed(2);
+    };
+
+    const currencyData = {
+      usdRate: {
+        rateBuy: formatRate(ronPerUsd),
+        rateSell: formatRate(ronPerUsd * 1.02),
+      },
+      euroRate: {
+        rateBuy: formatRate(ronPerUsd / rates.EUR),
+        rateSell: formatRate((ronPerUsd / rates.EUR) * 1.02),
+      },
+      lastUpdated: new Date().toLocaleTimeString(),
+    };
+
+    cacheData(currencyData);
+    return currencyData;
   } catch (error) {
-    throw new Error("Failed to fetch data from Open Exchange Rates: " + error.message);
+    console.error('API Error:', error);
+    throw new Error('Failed to fetch currency rates');
   }
 };
 
-// Funcție pentru a obține datele din cache (dacă există și sunt valide)
-const getCachedCurrencyData = () => {
-  const cachedData = JSON.parse(localStorage.getItem(CURRENCY_CACHE_KEY));
-  if (cachedData && Date.now() - cachedData.timestamp < 3600000) {
-    // Datele sunt valabile timp de 1 oră
-    return cachedData;
-  }
-  return null;
-};
+// Helper functions
+function getCachedData() {
+  const cached = localStorage.getItem(CURRENCY_CACHE_KEY);
+  if (!cached) return null;
 
-// Funcție pentru a salva datele în cache
-const cacheCurrencyData = (data) => {
-  const now = Date.now();
+  const { timestamp, data } = JSON.parse(cached);
+  const isFresh = Date.now() - timestamp < 3600000; // 1 hour cache
 
-  // Calculăm ratele de schimb pentru USD și EUR raportate la RON
-  const usdToRon = data.RON && data.USD ? (data.RON / data.USD).toFixed(2) : null;
-  const eurToRon = data.RON && data.EUR ? (data.RON / data.EUR).toFixed(2) : null;
+  return isFresh ? data : null;
+}
 
-  const currencyData = {
-    timestamp: now,
-    usdRate: usdToRon ? { rateBuy: usdToRon, rateSell: (usdToRon * 1.02).toFixed(2) } : null,
-    euroRate: eurToRon ? { rateBuy: eurToRon, rateSell: (eurToRon * 1.02).toFixed(2) } : null,
+function cacheData(data) {
+  const cache = {
+    timestamp: Date.now(),
+    data,
   };
-
-  localStorage.setItem(CURRENCY_CACHE_KEY, JSON.stringify(currencyData));
-  return currencyData;
-};
-
-// Funcție principală pentru a obține cursurile valutare
-export const getCurrencyRates = async () => {
-  let currencyData = getCachedCurrencyData();
-
-  if (currencyData && currencyData.usdRate && currencyData.euroRate) {
-    return currencyData; // Returnăm datele din cache dacă sunt valabile
-  }
-
-  try {
-    const data = await fetchCurrencyData();
-    currencyData = cacheCurrencyData(data);
-    if (!currencyData.usdRate || !currencyData.euroRate) {
-      throw new Error("Incomplete data fetched from API");
-    }
-  } catch (error) {
-    console.error("Error fetching data from API. Retrying...", error.message);
-    const data = await fetchCurrencyData();
-    currencyData = cacheCurrencyData(data);
-  }
-
-  if (!currencyData.usdRate || !currencyData.euroRate) {
-    throw new Error("Failed to fetch valid currency data");
-  }
-
-  return currencyData;
-};
+  localStorage.setItem(CURRENCY_CACHE_KEY, JSON.stringify(cache));
+}

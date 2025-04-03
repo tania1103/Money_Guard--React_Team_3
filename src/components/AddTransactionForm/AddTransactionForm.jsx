@@ -59,7 +59,7 @@ const AddTransactionForm = () => {
     dispatch(addTransaction(newTransaction))
       .unwrap()
       .then(() => {
-        Notiflix.Notify.success('Transaction added successfully!');
+        Notiflix.Notify.success(`${newTransaction.type} added successfully!`);
         options.resetForm();
         handleClickCancel();
       })
