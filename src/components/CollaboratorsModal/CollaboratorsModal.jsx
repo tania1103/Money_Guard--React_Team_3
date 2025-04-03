@@ -10,7 +10,6 @@ import ImgGabriel from '../../images/gabi.jpeg';
 import ImgAura from '../../images/aura.png';
 import ImgFlori from '../../images/flori.JPG';
 
-
 const collaborators = [
   {
     name: 'Tatiana Culeac',
@@ -32,7 +31,7 @@ const collaborators = [
   {
     name: 'Adina Gadalean',
 
-    pic: 'src/images/adina.jpeg',
+    pic: '',
     role: 'Developer',
   },
   {
