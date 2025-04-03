@@ -18,14 +18,12 @@ import {
   getTransactions,
   getTransactionsCategories,
 } from '../../redux/transaction/operations';
-import { selectIsCollaboratorsModalOpen } from '../../redux/modal/selectors';
 import { useMedia } from '../../hooks/useMedia';
 import s from './DashboardPage.module.css';
 
 const DashboardPage = () => {
   const dispatch = useDispatch();
   const { isMobile } = useMedia();
-  const isCollaboratorsModalOpen = useSelector(selectIsCollaboratorsModalOpen);
 
   useEffect(() => {
     dispatch(getTransactions());
@@ -63,8 +61,7 @@ const DashboardPage = () => {
         <ModalLogOut />
         <ModalEditTransaction />
         <ModalAddTransaction />
-        <ModalCollaboratorsButton />
-        {isCollaboratorsModalOpen && <CollaboratorsModalTransaction />}
+        <CollaboratorsModalTransaction />
         <Toaster />
       </div>
     </div>
