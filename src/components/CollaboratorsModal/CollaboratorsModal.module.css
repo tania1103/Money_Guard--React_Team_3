@@ -8,7 +8,7 @@
 
 @media only screen and (min-width: 768px) {
   .modalContainer {
-    padding: 20px 53px;
+    padding: 20px 20px;
   }
 }
 
@@ -33,26 +33,33 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
-  flex-wrap: wrap;
   width: calc((100% - 20px) / 2);
 }
 
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid #6a0dad;
 }
 
 .name {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--yellow);
 }
 
-
 .role {
-  font-size: 14px;
+  font-size: 12px;
 }
 
+@media only screen and (min-width: 768px) {
+  .name {
+    font-size: 16px;
+  }
+
+  .role {
+    font-size: 14px;
+  }
+}

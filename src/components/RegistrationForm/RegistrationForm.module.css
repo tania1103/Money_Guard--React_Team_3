@@ -22,7 +22,7 @@
 }
 
 .regTitle {
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-weight: 400;
   font-size: 19px;
   color: var(--white, #fbfbfb);
@@ -116,7 +116,7 @@
   border-bottom: 1px solid #ccc;
   color: var(--white-40);
   padding-left: 30px;
-   padding-right: 40px; /*Adăugăm spațiu pentru a evita suprapunerea cu butonul */
+  padding-right: 40px; /*Adăugăm spațiu pentru a evita suprapunerea cu butonul */
   box-sizing: border-box;
   padding-bottom: 8px;
   font-size: 18px;
@@ -160,7 +160,7 @@
 .error {
   color: var(--yellow);
   font-size: 12px;
-  margin-top: 3px;
+  margin-top: 55px;
   position: fixed; /* Poziționare relativă la containerul inputului */
 }
 
@@ -177,7 +177,7 @@
 
 .barContainer {
   width: 100%; /* Lungimea containerului să fie egală cu inputul */
-  margin-top: 10px; /* Spațiu între input și bară */
+  margin-top: 15px; /* Spațiu între input și bară */
 }
 
 /* Stiluri pentru PasswordStrengthBar */
@@ -192,8 +192,6 @@
   transition: all 0.2s ease;
   height: 100%; /* Grosimea barei active */
   border-radius: 2px; /*Colțuri rotunjite */
-
-
 }
 
 .infoBar {

@@ -1,15 +1,15 @@
 //TANIA
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 
-import { Icons } from "../Icons/Icons";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"; // Importăm iconițele
+import { Icons } from '../Icons/Icons';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai'; // Importăm iconițele
 
-import { loginThunk } from "../../redux/auth/operations";
-import { validationSchemaLogin } from "../../helpers/loginSchema";
-import s from "./LoginForm.module.css";
+import { loginThunk } from '../../redux/auth/operations';
+import { validationSchemaLogin } from '../../helpers/loginSchema';
+import s from './LoginForm.module.css';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
@@ -25,18 +25,18 @@ const LoginForm = () => {
   return (
     <Formik
       initialValues={{
-        email: "",
-        password: "",
+        email: '',
+        password: '',
       }}
       validationSchema={validationSchemaLogin}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, values }) => (
         <Form className={s.form}>
           <div className={s.modalEllipse}></div>
           <div className={s.loginLogo}>
-          <Icons
-              name={"logo"}
+            <Icons
+              name={'logo'}
               width={27}
               height={26}
               className={s.iconLogo}
@@ -45,8 +45,8 @@ const LoginForm = () => {
           </div>
           <label className={s.label}>
             <div className={s.inputContainerLogo}>
-            <Icons
-                name={"email"}
+              <Icons
+                name={'email'}
                 width={20}
                 height={16}
                 className={s.iconName}
@@ -58,34 +58,36 @@ const LoginForm = () => {
                 name="email"
                 placeholder="E-mail"
               />
-               <ErrorMessage name="email" component="div" className={s.error} />
+              <ErrorMessage name="email" component="div" className={s.error} />
             </div>
           </label>
           <label className={s.label}>
             <div className={s.inputContainerLogo}>
-            <Icons
-                name={"password"}
+              <Icons
+                name={'password'}
                 width={17}
                 height={17}
                 className={s.iconName}
               />
               <Field
                 className={s.loginInput}
-                type={showPass ? "text" : "password"} // Schimbăm tipul câmpului
+                type={showPass ? 'text' : 'password'} // Schimbăm tipul câmpului
                 name="password"
                 placeholder="Password"
               />
-              <button
-                type="button"
-                className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
-                onClick={togglePassVisibility}
-              >
-                {showPass ? (
-                  <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
-                ) : (
-                  <AiOutlineEye size={20} color="var(--white-40)" />
-                )}
-              </button>
+              {values.password && ( // Conditionally render the button only if the password field is not empty
+                <button
+                  type="button"
+                  className={s.togglePassButton}
+                  onClick={togglePassVisibility}
+                >
+                  {showPass ? (
+                    <AiOutlineEye size={20} color="var(--white-40)" />
+                  ) : (
+                    <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
+                  )}
+                </button>
+              )}
               <ErrorMessage
                 name="password"
                 component="div"
