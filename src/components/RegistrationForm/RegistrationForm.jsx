@@ -1,22 +1,22 @@
 //TANIA
-import { Formik, Field, Form, ErrorMessage } from "formik";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useState } from "react";
-import PasswordStrengthBar from "react-password-strength-bar";
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import PasswordStrengthBar from 'react-password-strength-bar';
 
-import { Icons } from "../Icons/Icons";
-import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+import { Icons } from '../Icons/Icons';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { registerThunk } from "../../redux/auth/operations";
-import { validationSchemaRegister } from "../../helpers/registrationSchema";
-import s from "./RegistrationForm.module.css";
+import { registerThunk } from '../../redux/auth/operations';
+import { validationSchemaRegister } from '../../helpers/registrationSchema';
+import s from './RegistrationForm.module.css';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
 
   const [showPass, setShowPass] = useState(false); // Stare pentru vizibilitatea parolei
-    const togglePassVisibility = () => setShowPass(!showPass); // Funcție pentru a alterna vizibilitatea
+  const togglePassVisibility = () => setShowPass(!showPass); // Funcție pentru a alterna vizibilitatea
 
   const onSubmit = ({ email, username, password }, { resetForm }) => {
     dispatch(registerThunk({ email, username, password }));
@@ -26,10 +26,10 @@ const RegistrationForm = () => {
   return (
     <Formik
       initialValues={{
-        email: "",
-        username: "",
-        password: "",
-        confirmPassword: "",
+        email: '',
+        username: '',
+        password: '',
+        confirmPassword: '',
       }}
       validationSchema={validationSchemaRegister}
       onSubmit={onSubmit}
@@ -39,7 +39,7 @@ const RegistrationForm = () => {
           <div className={s.modalEllipse}></div>
           <div className={s.registerLogo}>
             <Icons
-              name={"logo"}
+              name={'logo'}
               width={20}
               height={25}
               className={s.iconLogo}
@@ -50,7 +50,7 @@ const RegistrationForm = () => {
             <label className={s.label}>
               <div className={s.inputContainerLogo}>
                 <Icons
-                  name={"name"}
+                  name={'name'}
                   width={17}
                   height={17}
                   className={s.iconName}
@@ -71,7 +71,7 @@ const RegistrationForm = () => {
             <label className={s.label}>
               <div className={s.inputContainerLogo}>
                 <Icons
-                  name={"email"}
+                  name={'email'}
                   width={17}
                   height={17}
                   className={s.iconName}
@@ -92,28 +92,33 @@ const RegistrationForm = () => {
             <label className={s.label}>
               <div className={s.inputContainerLogo}>
                 <Icons
-                  name={"password"}
+                  name={'password'}
                   width={17}
                   height={17}
                   className={s.iconName}
                 />
                 <Field
-                  type={showPass ? "text" : "password"} // Schimbăm tipul câmpului
+                  type={showPass ? 'text' : 'password'} // Schimbăm tipul câmpului
                   name="password"
                   placeholder="Password"
                   className={s.regInput}
                 />
-                <button
-                  type="button"
-                  className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
-                  onClick={togglePassVisibility}
-                >
-                  {showPass ? (
-                    <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
-                  ) : (
-                    <AiOutlineEye size={20} color="var(--white-40)" />
-                  )}
-                </button>
+                {values.password && ( // Conditionally render the button only if the password field is not empty
+                  <button
+                    type="button"
+                    className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
+                    onClick={togglePassVisibility}
+                  >
+                    {showPass ? (
+                      <AiOutlineEye size={20} color="var(--white-40)" />
+                    ) : (
+                      <AiOutlineEyeInvisible
+                        size={20}
+                        color="var(--white-40)"
+                      />
+                    )}
+                  </button>
+                )}
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -124,42 +129,46 @@ const RegistrationForm = () => {
             <label className={s.label}>
               <div className={s.inputContainerLogo}>
                 <Icons
-                  name={"password"}
+                  name={'password'}
                   width={17}
                   height={17}
                   className={s.iconName}
                 />
-                    <Field
-                  type={showPass ? "text" : "password"} // Schimbăm tipul câmpului
+                <Field
+                  type={showPass ? 'text' : 'password'} // Schimbăm tipul câmpului
                   name="confirmPassword"
                   placeholder="Confirm Password"
                   className={s.regInput}
                 />
-  <button
-                                type="button"
-                                className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
-                                onClick={togglePassVisibility}
-                              >
-                                {showPass ? (
-                                  <AiOutlineEyeInvisible size={20} color="var(--white-40)" />
-                                ) : (
-                                  <AiOutlineEye size={20} color="var(--white-40)" />
-                                )}
-                              </button>
-                </div>
-                <div className={s.barContainer}>
+                {values.confirmPassword && ( // Conditionally render the button only if the password field is not empty}
+                  <button
+                    type="button"
+                    className={s.togglePassButton} // Stilizare pentru butonul de vizibilitate
+                    onClick={togglePassVisibility}
+                  >
+                    {showPass ? (
+                      <AiOutlineEye size={20} color="var(--white-40)" />
+                    ) : (
+                      <AiOutlineEyeInvisible
+                        size={20}
+                        color="var(--white-40)"
+                      />
+                    )}
+                  </button>
+                )}
+                <ErrorMessage
+                  name="confirmPassword"
+                  component="div"
+                  className={s.error}
+                />
+              </div>
+              <div className={s.barContainer}>
                 <PasswordStrengthBar
                   className={s.bar}
                   scoreWordClassName={s.infoBar}
                   password={values.password}
                 />
-                </div>
-                <ErrorMessage
-                  name="confirmPassword"
-                  component="div"
-                  className={s.lastError}
-                />
-
+              </div>
             </label>
           </div>
           <button className={s.but} disabled={isSubmitting} type="submit">
