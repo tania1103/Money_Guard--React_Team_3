@@ -108,7 +108,7 @@
 
 .regInput {
   position: relative;
-  width: 280px;
+  width: 100%; /* Asigurăm că inputul ocupă întreaga lățime a containerului */
   height: 100%;
   border: none;
   outline: none;
@@ -116,6 +116,7 @@
   border-bottom: 1px solid #ccc;
   color: var(--white-40);
   padding-left: 30px;
+   padding-right: 40px; /*Adăugăm spațiu pentru a evita suprapunerea cu butonul */
   box-sizing: border-box;
   padding-bottom: 8px;
   font-size: 18px;
@@ -143,39 +144,56 @@
 
 .togglePassButton {
   position: absolute;
-  right: 20px; /* Ajustează poziția în funcție de design */
+  right: 10px; /* Poziționare la marginea dreaptă a inputului */
+  top: 50%; /* Centrare verticală */
+  transform: translateY(-50%); /* Ajustare pentru centrare perfectă */
   background: none;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  z-index: 2; /* Asigurăm că butonul este deasupra inputului */
 }
 
 .error {
   color: var(--yellow);
   font-size: 12px;
   margin-top: 3px;
-  position: fixed;
+  position: fixed; /* Poziționare relativă la containerul inputului */
 }
 
 .lastError {
   color: var(--yellow);
   font-size: 12px;
   margin-top: 10px;
-  position: fixed;
+  position: fixed; /* Poziționare relativă la containerul inputului */
 }
-
 
 .success {
   color: var(--white);
 }
 
+.barContainer {
+  width: 100%; /* Lungimea containerului să fie egală cu inputul */
+  margin-top: 10px; /* Spațiu între input și bară */
+}
+
+/* Stiluri pentru PasswordStrengthBar */
+.bar {
+  width: 100%; /* Lungimea barei să fie egală cu inputul */
+  height: 5px; /* Grosimea barei */
+  background-color: #ccc; /* Culoare implicită */
+  border-radius: 2px; /* Colțuri rotunjite */
+}
+
 .bar div {
-  transition: all .2s ease;
-  flex-basis: content;
-  position: fixed;
-  width: 280px;
+  transition: all 0.2s ease;
+  height: 100%; /* Grosimea barei active */
+  border-radius: 2px; /*Colțuri rotunjite */
+
+
 }
 
 .infoBar {
@@ -188,6 +206,9 @@
     white-space: nowrap;
   }
 
+  .inputContainerLogo {
+    width: 400px; /* Ajustăm lățimea pentru ecrane mai mari */
+  }
   .form {
     border-radius: 8px;
     width: 533px;
@@ -228,9 +249,7 @@
     height: 454px;
   }
 
-  .bar div {
-
-    width: 409px;
-
+  .bar {
+    width: 409px; /* Lungimea barei să fie egală cu inputurile */
   }
 }

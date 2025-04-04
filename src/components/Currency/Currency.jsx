@@ -4,7 +4,7 @@ import clsx from 'clsx';
 
 import CurrencyChart from './CurrencyChart';
 
-import { getCurrencyRates } from '../../helpers/currencyMono';
+import { getCurrencyRates } from '../../helpers/currencyAPI';
 import s from './Currency.module.css';
 
 const Currency = () => {
